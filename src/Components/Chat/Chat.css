@@ -1,0 +1,70 @@
+.ChatBox_Container{
+    display: flex;
+    flex-direction: column;
+    border:2px solid grey;
+    border-left:none;
+    max-height: 90vh;
+    width:100vw;
+    background-color: rgb(244, 237, 237);
+}
+
+.sender_message{
+    text-align: right;
+    color: #0096FF;
+    align-self: flex-end;
+}
+.message{
+    border-radius: 5px;
+    background-color: white;
+    max-width: 300px;
+    word-wrap: break-word;
+}
+
+.ChatBox_header{
+    display: flex;
+    align-items: center;
+    gap:5px;
+    padding:5px;
+    border-bottom: 2px solid lightgrey;
+    background-color: white;
+    width:100%;
+}
+
+.Profile{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.Name{
+
+}
+
+.Messages{
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 0 5px;
+    height: 74vh;
+}
+
+.input_container{
+    width: 100%;
+    border-top: 2px solid grey;
+    margin-top: 5px;
+}
+
+.message_input{
+    width:90%;
+    height: 25px;
+    border: none;
+}
+
+.send_button{
+    width:10%;
+    border:none;
+    background-color: #0684de;
+    color: white;
+    border-radius: 3px;;
+}

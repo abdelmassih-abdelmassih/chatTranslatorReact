@@ -1,0 +1,21 @@
+.ChatsContainer{
+    width:35vw;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+    border:2px solid grey;
+
+}
+
+.Chats_Footer{
+    border-top: 2px solid grey;
+    margin-top: auto;
+    font-size: 14px;
+    /* height: 30px; */
+}
+
+.ChatsContainerScroll{
+    overflow-y: scroll;
+}
+
