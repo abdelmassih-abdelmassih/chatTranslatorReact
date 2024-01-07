@@ -1,10 +1,60 @@
-import React from 'react'
+import React, { useEffect, useState, useRef  } from 'react'
 import ChatsContainer from './Chats/Chats'
 import ChatBox from './Chat/ChatBox'
 import { useAuth } from '../services/useAuth'
+import { enterNewRoom, generateRoomId } from '../services/functions'
+import socket from '../socket'
 
 export default function Home() {
   const { logout } = useAuth()
+  const [activeUser, setActiveUser] = useState([])
+  const [tempUser, setTempUser] = useState({})
+  const [roomId, setRoomId] = useState()
+
+  const tempUserRef = useRef(tempUser);
+
+  useEffect(() => {
+    tempUserRef.current = tempUser;
+  }, [tempUser]);
+
+  useEffect(() => {
+    console.log("this is activeUser: ", activeUser)
+  }, [activeUser])
+
+  useEffect(() => {
+    console.log("this is roomId: ", roomId)  
+  }, [roomId])
+
+  useEffect(() => {
+    console.log("this is tempUser: ", tempUser)
+  }, [tempUser])
+
+  const handleActiveUser = async (user) => {
+    if (user.uid !== activeUser.uid) {
+      console.log("this is handleActiveUser", user)
+      setTempUser(user);
+      setActiveUser([]);
+      setRoomId();
+      const roomid = generateRoomId(user.uid || 123)
+      await enterNewRoom(roomid);
+    }
+  }
+
+  useEffect(() => {
+    socket.on('room_joined', (roomid) => {
+      console.log("Successfully joined :", roomid);
+      console.log("Temp User :", tempUser);
+      setRoomId(roomid)
+      setActiveUser(tempUserRef)
+      setTempUser([])
+    });
+
+    // Cleanup the listener when the component unmounts
+    return () => {
+      socket.off('room_joined');
+    };
+  }, []);
+
   return (
     <>
       <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -16,8 +66,8 @@ export default function Home() {
       </div>
 
       <div className='Home_container'>
-        <ChatsContainer />
-        <ChatBox />
+        <ChatsContainer activeUser={activeUser} handleActiveUser={handleActiveUser} />
+        <ChatBox activeUser={activeUser} setActiveUser={setActiveUser} />
       </div>
     </>
   )

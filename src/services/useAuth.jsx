@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext, createContext } from 'react';
 import { auth } from './firebase'; // Import your firebase configuration
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { UpdateUsersCollection } from './functions';
 
 // Create a context for the authentication data
 const AuthContext = createContext();
@@ -39,12 +40,27 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem('name', user.displayName);
         localStorage.setItem('uid', user.uid)
         localStorage.setItem('photoURL', user.photoURL)
+        localStorage.setItem('email', user.email)
+
+        const update = async () => {
+         await UpdateUsersCollection({
+            name: user.displayName,
+            uid: user.uid,
+            image: user.photoURL,
+            email: user.email
+          });
+        };
+        
+        update();
+
         setUser(user);
-        console.log("this is user is set " , user)
+
+        // console.log("this is user is set ", user)
       } else {
         localStorage.removeItem('name');
         localStorage.removeItem('uid');
         localStorage.removeItem('photoURL');
+        localStorage.removeItem('email');
         setUser(null);
         console.log("this is user is NOT set", user)
       }

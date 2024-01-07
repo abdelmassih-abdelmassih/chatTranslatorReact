@@ -4,7 +4,7 @@ import ChatClick from './ChatClick'
 import Footer from './Footer'
 import { getAllUsers } from '../../services/functions'
 
-export default function ChatsContainer() {
+export default function ChatsContainer({activeUser, handleActiveUser}) {
   const [users, setUsers] = useState(null)
 
   useEffect(() => {
@@ -18,9 +18,11 @@ export default function ChatsContainer() {
 
   const renderUsers = () => {
     return users.map((user, index) => {
-      return (
-        <ChatClick key={index} user={user} /> // Make sure to add a key for list items
-      );
+      if(user.uid !== localStorage.getItem('uid')){
+        return (
+          <ChatClick key={index} user={user} activeUser={activeUser} handleActiveUser={handleActiveUser}/> // Make sure to add a key for list items
+        );
+      }
     });
   };
   

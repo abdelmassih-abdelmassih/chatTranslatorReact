@@ -4,23 +4,36 @@ import Input from './Input'
 import Messages from './Messages'
 import socket from '../../socket.jsx'
 
-export default function ChatBox() {
+export default function ChatBox({activeUser, setActiveUser}) {
   const [messages, setMessages] = useState([])
 
   useEffect(()=>{
+    console.log("this is chatbox",activeUser)
     socket.on('receive_message', (data)=>{
       setMessages((old)=>[...old, data])
     })
+    return () => {
+      socket.off('receive_message');
+    };
   }, [socket])
 
-  return (
-    <div className='ChatBox_Container'>
-      <div className='ChatBox_header'>
-        <img className='Profile' src="https://firebasestorage.googleapis.com/v0/b/abdelmassih-portfolio.appspot.com/o/profile3.jpeg?alt=media&token=bd03b03e-0848-4882-b9c5-c2dae4efe081" />
-        <h3 className='Name'>Friend's name</h3>
+  if (activeUser.length!== 0) {
+    return (
+      <div className='ChatBox_Container'>
+        <div className='ChatBox_header'>
+          <img className='Profile' src={activeUser.image} alt='Profile'/>
+          <h3 className='Name'>{activeUser.name}</h3>
+          <button className='exitChat_Button' onClick={() => setActiveUser([])}>Close</button>
+        </div>
+        <Messages messages={messages} />
+        <Input setMessages={setMessages}/>
       </div>
-      <Messages messages= {messages} />
-      <Input setMessages={setMessages}/>
-    </div>
-  )
+    )
+  } else {
+    return (
+      <div className='ChatBox_Container'>
+      </div>
+    )
+  }
 }
+

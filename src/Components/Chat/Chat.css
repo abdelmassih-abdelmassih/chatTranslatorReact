@@ -1,46 +1,61 @@
-.ChatBox_Container{
+.ChatBox_Container {
     display: flex;
     flex-direction: column;
-    border:2px solid grey;
-    border-left:none;
+    border: 2px solid grey;
+    border-left: none;
     max-height: 90vh;
-    width:100vw;
+    width: 100vw;
     background-color: rgb(244, 237, 237);
 }
 
-.sender_message{
+.sender_message {
     text-align: right;
     color: #0096FF;
     align-self: flex-end;
 }
-.message{
+
+.message {
     border-radius: 5px;
     background-color: white;
     max-width: 300px;
     word-wrap: break-word;
 }
 
-.ChatBox_header{
+.ChatBox_header {
     display: flex;
     align-items: center;
-    gap:5px;
-    padding:5px;
+    gap: 5px;
+    padding: 5px;
     border-bottom: 2px solid lightgrey;
     background-color: white;
-    width:100%;
+    width: 100%;
 }
 
-.Profile{
-    height: 50px;
-    width: 50px;
+.Profile {
+    height: 48.5px;
+    width: 48.5px;
     border-radius: 50%;
 }
 
-.Name{
+.Name {}
 
+.exitChat_Button {
+    border: none;
+    margin-left: auto;
+    border-radius: 10px;
+    padding: 4px;
+    background-color: rgb(228, 218, 218);
+    color: rgb(65, 62, 62);
+    transition: all 0.25s;
 }
 
-.Messages{
+.exitChat_Button:hover {
+    background-color: rgb(241, 236, 236);
+    color: black;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1.5px 5px 0 rgba(0, 0, 0, 0.19);
+}
+
+.Messages {
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
@@ -49,7 +64,7 @@
     height: 74vh;
 }
 
-.input_container{
+.input_container {
     width: 100%;
     border-top: 2px solid grey;
     margin-top: 5px;
@@ -58,19 +73,20 @@
     justify-content: center;
 }
 
-.message_input{
-    width:90%;
+.message_input {
+    width: 90%;
     height: 30px;
     border: none;
 }
 
-.send_button{
-    width:10%;
+.send_button {
+    width: 10%;
     height: 30px;
-    border:none;
+    border: none;
     background-color: #0684de;
     color: white;
-    border-radius: 3px;;
+    border-radius: 3px;
+    ;
     display: flex;
     align-items: center;
     justify-content: center;
