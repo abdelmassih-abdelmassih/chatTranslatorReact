@@ -53,18 +53,25 @@
     width: 100%;
     border-top: 2px solid grey;
     margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .message_input{
     width:90%;
-    height: 25px;
+    height: 30px;
     border: none;
 }
 
 .send_button{
     width:10%;
+    height: 30px;
     border:none;
     background-color: #0684de;
     color: white;
     border-radius: 3px;;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

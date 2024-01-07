@@ -1,9 +1,10 @@
 import React from 'react'
 
-export default function ChatClick() {
+export default function ChatClick({user}) {
   return (
     <div>
-        ChatClick
+        {/* {user.email} */}
+        {user.name}
     </div>
   )
 }
