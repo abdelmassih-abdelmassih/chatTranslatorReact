@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef  } from 'react'
 import ChatsContainer from './Chats/Chats'
 import ChatBox from './Chat/ChatBox'
 import { useAuth } from '../services/useAuth'
-import { enterNewRoom, generateRoomId } from '../services/functions'
+import { enterNewRoom, generateRoomId, leaveRoom } from '../services/functions'
 import socket from '../socket'
 
 export default function Home() {
@@ -17,20 +17,25 @@ export default function Home() {
     tempUserRef.current = tempUser;
   }, [tempUser]);
 
-  useEffect(() => {
-    console.log("this is activeUser: ", activeUser)
-  }, [activeUser])
+  // useEffect(() => {
+  //   console.log("this is activeUser: ", activeUser)
+  // }, [activeUser])
 
-  useEffect(() => {
-    console.log("this is roomId: ", roomId)  
-  }, [roomId])
+  // useEffect(() => {
+  //   console.log("this is roomId: ", roomId)  
+  // }, [roomId])
 
-  useEffect(() => {
-    console.log("this is tempUser: ", tempUser)
-  }, [tempUser])
+  // useEffect(() => {
+  //   console.log("this is tempUser: ", tempUser)
+  // }, [tempUser])
 
   const handleActiveUser = async (user) => {
     if (user.uid !== activeUser.uid) {
+      try {
+        await leaveRoom(roomId);
+      } catch (error) {
+        console.log(error);
+      }
       console.log("this is handleActiveUser", user)
       setTempUser(user);
       setActiveUser([]);
@@ -45,7 +50,7 @@ export default function Home() {
       console.log("Successfully joined :", roomid);
       console.log("Temp User :", tempUser);
       setRoomId(roomid)
-      setActiveUser(tempUserRef)
+      setActiveUser(tempUserRef.current)
       setTempUser([])
     });
 
@@ -67,7 +72,7 @@ export default function Home() {
 
       <div className='Home_container'>
         <ChatsContainer activeUser={activeUser} handleActiveUser={handleActiveUser} />
-        <ChatBox activeUser={activeUser} setActiveUser={setActiveUser} />
+        <ChatBox activeUser={activeUser} setActiveUser={setActiveUser} roomId={roomId}/>
       </div>
     </>
   )

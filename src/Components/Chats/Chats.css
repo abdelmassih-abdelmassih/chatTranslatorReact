@@ -10,6 +10,13 @@
     padding-top: 5px;
 }
 
+.ChatsContainerHeader{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
 .ChatsContainerScroll{
     overflow-y: scroll;
     overflow-x:hidden;

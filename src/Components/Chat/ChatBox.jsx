@@ -4,18 +4,26 @@ import Input from './Input'
 import Messages from './Messages'
 import socket from '../../socket.jsx'
 
-export default function ChatBox({activeUser, setActiveUser}) {
+export default function ChatBox({activeUser, setActiveUser, roomId}) {
   const [messages, setMessages] = useState([])
 
   useEffect(()=>{
     console.log("this is chatbox",activeUser)
-    socket.on('receive_message', (data)=>{
+    socket.on('receive_private_message', (data)=>{
       setMessages((old)=>[...old, data])
+      console.log(data)
     })
     return () => {
       socket.off('receive_message');
     };
   }, [socket])
+
+  // useEffect(()=>{
+  //   socket.emit('send_private_message', activeUser.id)
+  //   return () => {
+  //     socket.off('join_room');
+  //   };
+  // }, [socket, activeUser])
 
   if (activeUser.length!== 0) {
     return (
@@ -26,7 +34,7 @@ export default function ChatBox({activeUser, setActiveUser}) {
           <button className='exitChat_Button' onClick={() => setActiveUser([])}>Close</button>
         </div>
         <Messages messages={messages} />
-        <Input setMessages={setMessages}/>
+        <Input setMessages={setMessages} roomId={roomId}/>
       </div>
     )
   } else {

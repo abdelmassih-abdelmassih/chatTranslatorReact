@@ -1,11 +1,11 @@
 import React, {useState } from 'react'
 import socket from '../../socket'
 
-export default function Input({setMessages}) {
+export default function Input({setMessages, roomId}) {
   const [message, setMessage] = useState()
 
   const SendMessage = () => {
-    socket.emit('send_message', {message: message, sender: false});
+    socket.emit('send_private_message', {roomId: roomId,  message: message, senderId: localStorage.getItem('uid')});
     setMessages(old => [...old, {message: message, sender: true}])
     setMessage('');
   }

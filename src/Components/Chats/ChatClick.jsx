@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default function ChatClick({ user, activeUser, handleActiveUser }) {
+export default function ChatClick({ user, activeUser, handleActiveUser, showConvs}) {
   const [showEmail, setShowEmail] = useState(false)
 
   return (

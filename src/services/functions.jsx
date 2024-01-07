@@ -11,6 +11,16 @@ export const getAllUsers = async () => {
     }
 }
 
+export const getAllConvs = async () => {
+    try {
+        const res = await axios.get(import.meta.env.VITE_BACKEND_URL + '/listconvs')
+        // console.log("this is getAllUsersUsers",res.data)
+        return res.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const UpdateUsersCollection = async (user) => {
     try {
         const res = await axios.post(import.meta.env.VITE_BACKEND_URL + '/listUsers/update', user)
@@ -39,4 +49,8 @@ export const generateRoomId = (otherUid) => {
   
 export const enterNewRoom = async (roomId) => {
     socket.emit('join_private_chat', roomId)
+}
+
+export const leaveRoom = async (roomId) => {
+    socket.emit('leave_private_chat', roomId)
 }

@@ -61,16 +61,18 @@
     flex-direction: column;
     gap: 3px;
     padding: 0 5px;
-    height: 74vh;
+    /* height: 74vh; */
 }
 
 .input_container {
     width: 100%;
+    /* padding: 0; */
     border-top: 2px solid grey;
-    margin-top: 5px;
+    margin-top: auto;
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 35px;
 }
 
 .message_input {
