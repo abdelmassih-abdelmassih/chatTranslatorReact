@@ -3,6 +3,7 @@ import './Chat.css'
 import Input from './Input'
 import Messages from './Messages'
 import socket from '../../socket.jsx'
+import { fetchMessages } from '../../services/functions.jsx'
 
 export default function ChatBox({activeUser, setActiveUser, roomId}) {
   const [messages, setMessages] = useState([])
@@ -10,7 +11,12 @@ export default function ChatBox({activeUser, setActiveUser, roomId}) {
   useEffect(()=>{
     console.log("this is chatbox",activeUser)
     socket.on('receive_private_message', (data)=>{
-      setMessages((old)=>[...old, data])
+      setMessages((old)=>[...old, {
+        read: false,
+        senderId: data.senderId,
+        text: data.message,
+        timestamp: data.timestamp
+      }])
       console.log(data)
     })
     return () => {
@@ -18,12 +24,24 @@ export default function ChatBox({activeUser, setActiveUser, roomId}) {
     };
   }, [socket])
 
-  // useEffect(()=>{
-  //   socket.emit('send_private_message', activeUser.id)
-  //   return () => {
-  //     socket.off('join_room');
-  //   };
-  // }, [socket, activeUser])
+  useEffect(() => {
+
+    const fetchData = async () => {
+      try {
+        if (activeUser.uid) {
+          const messages = await fetchMessages(roomId);
+          console.log(messages);
+          setMessages(messages);
+          // Handle the fetched messages as needed
+        }
+      } catch (error) {
+        console.error("Error fetching messages: ", error);
+        // You can also implement additional error handling logic here
+      }
+    };
+  
+    fetchData();
+  }, [activeUser, roomId]);
 
   if (activeUser.length!== 0) {
     return (

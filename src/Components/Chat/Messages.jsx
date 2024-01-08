@@ -5,7 +5,7 @@ export default function Messages({messages}) {
 
   const RenderMessages = () => {
       return messages.map((message)=>{
-          return <Message content = {message.message} sender={message.sender}/>
+          return <Message content = {message.text} senderId={message.senderId} key={message.id}/>
       })
   }
   return (

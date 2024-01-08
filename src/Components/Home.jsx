@@ -48,7 +48,7 @@ export default function Home() {
   useEffect(() => {
     socket.on('room_joined', (roomid) => {
       console.log("Successfully joined :", roomid);
-      console.log("Temp User :", tempUser);
+      // console.log("Temp User :", tempUser);
       setRoomId(roomid)
       setActiveUser(tempUserRef.current)
       setTempUser([])

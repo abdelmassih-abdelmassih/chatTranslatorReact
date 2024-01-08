@@ -33,20 +33,20 @@ export const UpdateUsersCollection = async (user) => {
 
 export const generateRoomId = (otherUid) => {
     const thisUid = localStorage.getItem('uid');
-    
+
     if (!thisUid || !otherUid) {
-      throw new Error("User IDs are required to generate a room ID.");
+        throw new Error("User IDs are required to generate a room ID.");
     }
-  
+
     // Sort the UIDs alphabetically
     const sortedUids = [thisUid, otherUid].sort();
-  
+
     // Concatenate the sorted UIDs to form a roomId
     const roomId = sortedUids.join('-');
-  
+
     return roomId;
 }
-  
+
 export const enterNewRoom = async (roomId) => {
     socket.emit('join_private_chat', roomId)
 }
@@ -54,3 +54,14 @@ export const enterNewRoom = async (roomId) => {
 export const leaveRoom = async (roomId) => {
     socket.emit('leave_private_chat', roomId)
 }
+
+export const fetchMessages = async (roomId) => {
+    try {
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/messages?roomId=${roomId}`);
+        // console.log("this is fetchMessages", res.data);
+        return res.data; // Returning the fetched data
+    } catch (error) {
+        console.error("Error in fetchMessages: ", error);
+        throw error; // Re-throwing the error to be caught in useEffect
+    }
+};

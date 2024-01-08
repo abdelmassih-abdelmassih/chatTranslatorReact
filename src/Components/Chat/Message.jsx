@@ -1,8 +1,9 @@
 import React from 'react'
 
-export default function Message({content, sender}) {
+export default function Message({ content, senderId, key }) {
+  console.log()
   return (
-    <div className={sender === true ? 'message sender_message' : 'message'}>
+    <div key={key} className={senderId === localStorage.getItem('uid') ? 'message sender_message' : 'message'}>
       {content}
     </div>
   )
