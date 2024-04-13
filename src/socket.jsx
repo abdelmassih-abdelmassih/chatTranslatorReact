@@ -1,4 +1,4 @@
 import { io } from "socket.io-client";
-const socket = new io.connect("http://localhost:3000");
+const socket = new io.connect("https://chattranslator-api.onrender.com");
 
 export default socket;

@@ -7,39 +7,26 @@ import LanguageDropdown from '../../utils/LanguageDropdown'
 
 export default function ChatsContainer({ activeUser, handleActiveUser, language, setLanguage }) {
   const [users, setUsers] = useState([])
-  const [convs, setConvs] = useState([])
   const [showConvs, setShowConvs] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchUsers = async () => {
       const users = await getAllUsers(); // Assuming getAllUsers is an async function
       setUsers(users);
-    };
-
-    const fetchConvs = async () => {
-      const convs = await getAllConvs(); // Assuming getAllUsers is an async function
-      setConvs(convs);
+      setLoading(false);
     };
 
     fetchUsers();
-    fetchConvs();
   }, []);
 
   const renderUsers = () => {
     return users.map((user, index) => {
       if (user.uid !== localStorage.getItem('uid')) {
         return (
-          <ChatClick key={index} user={user} activeUser={activeUser} handleActiveUser={handleActiveUser} showConvs={showConvs} /> // Make sure to add a key for list items
+          <ChatClick key={index} user={user} activeUser={activeUser} handleActiveUser={handleActiveUser} /> // Make sure to add a key for list items
         );
       }
-    });
-  };
-
-  const renderConvs = () => {
-    return convs.map((conv, index) => {
-      return (
-        <ChatClick key={index} user={conv} activeUser={activeUser} handleActiveUser={handleActiveUser} showConvs={showConvs} /> // Make sure to add a key for list items
-      );
     });
   };
 
@@ -53,8 +40,9 @@ export default function ChatsContainer({ activeUser, handleActiveUser, language,
         <button onClick={() => setShowConvs(false)}>All Users</button> */}
       </div>
       <div className='ChatsContainerScroll'>
-        {!showConvs && renderUsers()}
-        {showConvs && renderConvs()}
+        {loading && <div className='loading-spinner'>Loading Convs ... max wait is 30 seconds because we are using free tier hosting for the API</div>}
+        {renderUsers()}
+        
       </div>
       <Footer />
     </div>
