@@ -44,10 +44,12 @@ export default function ChatsContainer({activeUser, handleActiveUser}) {
   
   return (
     <div className='ChatsContainer'>
-      {/* <div className='ChatsContainerHeader'>
-        <button onClick={() => setShowConvs(true)}>Conversations</button>
-        <button onClick={() => setShowConvs(false)}>All Users</button>
-      </div> */}
+      <div className='ChatsContainerHeader'>
+        <input className='search_bar' type='text' placeholder='Search' />
+        <button className='search_button'>Search</button>
+        {/* <button onClick={() => setShowConvs(true)}>Conversations</button>
+        <button onClick={() => setShowConvs(false)}>All Users</button> */}
+      </div>
       <div className='ChatsContainerScroll'>
         {!showConvs && renderUsers()}
         {showConvs && renderConvs()}

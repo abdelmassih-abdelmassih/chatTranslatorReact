@@ -14,7 +14,30 @@
     display:flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    gap: 5px;
+    padding:2px;
+    height: 59px;
+    border-bottom: 2px solid lightgrey;
+    margin-bottom: 3px;
+    /* justify-content: space-around; */
+}
+
+.search_bar{
+    width: 75%;
+    border-radius: 5px;
+    border: 1px solid rgb(194, 191, 191);
+}
+
+.search_button{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    background-color: #0684de;
+    color:white;
+    border:none;
+    border-radius: 10px;
+    font-size: 13.5px;;
 }
 
 .ChatsContainerScroll{

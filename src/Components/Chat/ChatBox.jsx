@@ -5,32 +5,33 @@ import Messages from './Messages'
 import socket from '../../socket.jsx'
 import { fetchMessages } from '../../services/functions.jsx'
 
-export default function ChatBox({activeUser, setActiveUser, roomId}) {
+export default function ChatBox({ activeUser, setActiveUser, roomId }) {
   const [messages, setMessages] = useState([])
 
-  useEffect(()=>{
-    console.log("this is chatbox",activeUser)
-    socket.on('receive_private_message', (data)=>{
-      setMessages((old)=>[...old, {
+  useEffect(() => {
+    console.log("this is chatbox", activeUser)
+    socket.on('receive_private_message', (data) => {
+      setMessages((old) => [...old, {
         read: false,
         senderId: data.senderId,
         text: data.message,
         timestamp: data.timestamp
       }])
-      console.log(data)
+      console.log("this is receive_private_message:",data)
     })
     return () => {
-      socket.off('receive_message');
+      socket.off('receive_private_message');
     };
   }, [socket])
 
   useEffect(() => {
 
     const fetchData = async () => {
+      setMessages([]);
       try {
         if (activeUser.uid) {
           const messages = await fetchMessages(roomId);
-          console.log(messages);
+          // console.log(messages);
           setMessages(messages);
           // Handle the fetched messages as needed
         }
@@ -39,20 +40,23 @@ export default function ChatBox({activeUser, setActiveUser, roomId}) {
         // You can also implement additional error handling logic here
       }
     };
-  
+
     fetchData();
   }, [activeUser, roomId]);
 
-  if (activeUser.length!== 0) {
+  if (activeUser.length !== 0) {
     return (
       <div className='ChatBox_Container'>
         <div className='ChatBox_header'>
-          <img className='Profile' src={activeUser.image} alt='Profile'/>
+          <img className='Profile' src={activeUser.image} alt='Profile' />
           <h3 className='Name'>{activeUser.name}</h3>
-          <button className='exitChat_Button' onClick={() => setActiveUser([])}>Close</button>
+          <button className='exitChat_Button' onClick={() => {
+            setActiveUser([])
+            setMessages([])
+          }}>Close</button>
         </div>
         <Messages messages={messages} />
-        <Input setMessages={setMessages} roomId={roomId}/>
+        <Input setMessages={setMessages} roomId={roomId} />
       </div>
     )
   } else {
