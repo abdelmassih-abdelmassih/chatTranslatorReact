@@ -10,6 +10,8 @@ export default function Home() {
   const [activeUser, setActiveUser] = useState([])
   const [tempUser, setTempUser] = useState({})
   const [roomId, setRoomId] = useState()
+  const [language, setLanguage] = useState({ value: 'English', label: 'English' });
+
 
   const tempUserRef = useRef(tempUser);
 
@@ -71,8 +73,8 @@ export default function Home() {
       </div>
 
       <div className='Home_container'>
-        <ChatsContainer activeUser={activeUser} handleActiveUser={handleActiveUser} />
-        <ChatBox activeUser={activeUser} setActiveUser={setActiveUser} roomId={roomId}/>
+        <ChatsContainer activeUser={activeUser} handleActiveUser={handleActiveUser} language={language} setLanguage={setLanguage} />
+        <ChatBox activeUser={activeUser} setActiveUser={setActiveUser} roomId={roomId} language={language}/>
       </div>
     </>
   )

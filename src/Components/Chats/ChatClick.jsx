@@ -8,5 +8,8 @@ export default function ChatClick({ user, activeUser, handleActiveUser, showConv
       {showEmail && user.email}
       {!showEmail && user.name}
     </div>
+    // <div className={'ChatClick' + (user === activeUser ? '' : 'active')} onClick={() => handleActiveUser(user)} title={user.email}>
+    //   {user.name}
+    // </div>
   )
 }

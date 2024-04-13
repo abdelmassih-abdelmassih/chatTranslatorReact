@@ -4,9 +4,11 @@ import Input from './Input'
 import Messages from './Messages'
 import socket from '../../socket.jsx'
 import { fetchMessages } from '../../services/functions.jsx'
+import { sendSignInLinkToEmail } from 'firebase/auth'
 
-export default function ChatBox({ activeUser, setActiveUser, roomId }) {
+export default function ChatBox({ activeUser, setActiveUser, roomId, language }) {
   const [messages, setMessages] = useState([])
+  const [sending, setSending] = useState(false);
 
   useEffect(() => {
     console.log("this is chatbox", activeUser)
@@ -14,10 +16,11 @@ export default function ChatBox({ activeUser, setActiveUser, roomId }) {
       setMessages((old) => [...old, {
         read: false,
         senderId: data.senderId,
-        text: data.message,
+        text: data.text,
         timestamp: data.timestamp
       }])
-      console.log("this is receive_private_message:",data)
+      setSending(false);
+      console.log("this is receive_private_message:", data)
     })
     return () => {
       socket.off('receive_private_message');
@@ -25,7 +28,6 @@ export default function ChatBox({ activeUser, setActiveUser, roomId }) {
   }, [socket])
 
   useEffect(() => {
-
     const fetchData = async () => {
       setMessages([]);
       try {
@@ -56,7 +58,7 @@ export default function ChatBox({ activeUser, setActiveUser, roomId }) {
           }}>Close</button>
         </div>
         <Messages messages={messages} />
-        <Input setMessages={setMessages} roomId={roomId} />
+        <Input setMessages={setMessages} roomId={roomId} language={language} sending={sending} setSending={setSending} />
       </div>
     )
   } else {

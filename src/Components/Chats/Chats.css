@@ -1,79 +1,85 @@
-.ChatsContainer{
-    width:35vw;
+.ChatsContainer {
+    width: 35vw;
     border: 1px solid black;
     display: flex;
     flex-direction: column;
     max-height: 90vh;
-    border:2px solid grey;
-    display:flex;
+    border: 2px solid grey;
+    display: flex;
     flex-direction: column;
     padding-top: 5px;
+    overflow: hidden;
 }
 
-.ChatsContainerHeader{
-    display:flex;
+.ChatsContainerHeader {
+    display: flex;
     flex-direction: row;
     align-items: center;
     gap: 5px;
-    padding:2px;
+    padding: 2px;
+    width: 90%;
     height: 59px;
     border-bottom: 2px solid lightgrey;
     margin-bottom: 3px;
     /* justify-content: space-around; */
 }
 
-.search_bar{
+.search_bar {
     width: 75%;
     border-radius: 5px;
     border: 1px solid rgb(194, 191, 191);
 }
 
-.search_button{
-    display:flex;
+.search_button {
+    display: flex;
     justify-content: center;
     align-items: center;
     width: 25%;
     background-color: #0684de;
-    color:white;
-    border:none;
+    color: white;
+    border: none;
     border-radius: 10px;
-    font-size: 13.5px;;
+    font-size: 13.5px;
+    ;
 }
 
-.ChatsContainerScroll{
+.ChatsContainerScroll {
     overflow-y: scroll;
-    overflow-x:hidden;
-    display:flex;
+    overflow-x: hidden;
+    display: flex;
     flex-direction: column;
     height: 80vh;
-    gap:5px;
+    width: 100%;
+    gap: 5px;
 }
 
-.ChatClick{
+.ChatClick {
     background-color: #f2f2f2;
-    padding:4px;
+    padding: 4px;
     margin: 0 5px;
     height: 30px;
-    overflow: hidden;
+    max-width: 85%;
+    overflow: hidden; /* Hide overflowed content */
+    white-space: nowrap; /* Prevent text from wrapping to next line */
     border-radius: 10px;
+    border-bottom: 2px solid lightgray;
 }
 
-.ChatClick:hover{
+.ChatClick:hover {
     background-color: #0684de;
-    color:white;
+    color: white;
 }
 
-.ChatClick, .active{
+.ChatClick,
+.active {
     background-color: #0684de;
-    color:white;
+    color: white;
 }
 
-.Chats_Footer{
+.Chats_Footer {
     border-top: 2px solid grey;
     margin-top: auto;
     font-size: 14px;
     /* height: 32px; */
     overflow: hidden;
 }
-
-
