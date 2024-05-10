@@ -7,7 +7,7 @@ import ProtectedRoute from './services/ProtectedRoute';
 
 export default function App() {
   useEffect(()=>{
-    console.log("version: 1")
+    console.log("version: 2")
   },[])
   return (
     <AuthProvider>
