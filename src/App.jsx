@@ -6,9 +6,11 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './services/ProtectedRoute';
 
 export default function App() {
+
   useEffect(()=>{
-    console.log("version: 2")
+    console.log("version: 3")
   },[])
+
   return (
     <AuthProvider>
       <Router>
