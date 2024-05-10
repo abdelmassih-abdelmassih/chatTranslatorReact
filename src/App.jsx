@@ -8,7 +8,7 @@ import ProtectedRoute from './services/ProtectedRoute';
 export default function App() {
 
   useEffect(()=>{
-    console.log("version: 3")
+    console.log("version: 4")
   },[])
 
   return (
